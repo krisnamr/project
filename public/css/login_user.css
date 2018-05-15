@@ -1,7 +1,9 @@
+/* LOGIN ADMIN */
+
 body{
     margin: 0;
     padding: 0;
-    background: url('../../public/assets/image/ug6.jpg');
+    background: url('../../public/assets/image/ug_g.jpg');
    
 }
 
@@ -19,7 +21,7 @@ body{
 }
 .loginBox:hover{
 box-shadow: 0 10px 20px rgba(0,0,0,0);
-background: rgba(209,196,233,1);
+background: rgba(187,222,251,1);
 }
 
 .image{
@@ -33,7 +35,6 @@ background: rgba(209,196,233,1);
     padding: 40px;
     box-sizing: border-box;
     background:rgba(255,255,255,.6);
-    /* background:rgba(209,196,233,.6); */
     border-radius: 5px;
     transition: .5s;
 
@@ -99,3 +100,4 @@ h3{
     text-align: center;
     display: block;
 }
+
