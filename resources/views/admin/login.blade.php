@@ -15,25 +15,47 @@
         <div class="glass">
             <img src="{{asset('assets/image/logo2.png')}}" class="image user">
             <h3>Login Here</h3>
-            <form>
-                <div class="inputBox">
-                    <input type="text" name="" placeholder="Username">
-                    <span>
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </span>
-                </div>
+
+            <form method="POST" action="{{ route('admin.login.submit') }}">
+                {{ csrf_field() }}
 
                 <div class="inputBox">
-                    <input type="password" name="" placeholder="Password">
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <input type="text" id="email" name="email" placeholder="E-mail Address" value="{{ old('email') }}" required autofocus>
+                        
+                        <span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="inputBox">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <input type="password" id="password" name="password" placeholder="Password" required> 
                     <span>
-                      <i class="fa fa-lock" aria-hidden="true"></i>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                 </div>
-                <input type="submit" name="" value="Login">
+                </div>
+
+                <input type="submit" name="button" value="Login" class="form-control">
+
+                {{-- Validation email and password --}}
+                @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
+
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
+
+                <a href="#">Forgot Password</a>
             </form>
-            <a href="#">Forgot Password</a>
-        </div>
-    </div>
 </body>
 
 </html>
