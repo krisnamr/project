@@ -11,6 +11,7 @@ class Role1
     {
         if (Auth::user()->role=='user1'){
             return $next($request);
+            
         }elseif (Auth::user()->role=='user2'){
             return redirect ('/user2');
         }

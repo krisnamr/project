@@ -16,7 +16,7 @@
             <img src="{{asset('assets/image/logo2.png')}}" class="image user">
             <h3>Login Here</h3>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('user.login.submit') }}">
                 {{ csrf_field() }}
 
                 <div class="inputBox">

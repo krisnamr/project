@@ -134,13 +134,13 @@
                                         <ul class="pull-right" id="logout" >
                                                 <li class="glyphicon glyphicon-log-out"></li>
                                                 <li>
-                                                        <a href="{{ route('admin.logout') }}"
+                                                        <a href="{{ route('user2.logout') }}"
                                                             onclick="event.preventDefault();
                                                                      document.getElementById('logout-form').submit();">
                                                             Logout
                                                         </a>
                                             
-                                         <li><form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                         <li><form id="logout-form" action="{{ route('user.2logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                             <input type="submit">Logout
                                         </form></li>

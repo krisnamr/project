@@ -11,9 +11,7 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('user1.login');
-// });
+
 
 Auth::routes();
 
@@ -26,7 +24,7 @@ Route::prefix('admin')->group(function() {
     Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('admin.logout');
-    // Route::post('/logout', 'AuthAdmin\LoginController@Adminlogout')->name('admin.logout');
+    Route::post('/logout', 'AuthAdmin\LoginController@Adminlogout')->name('admin.logout');
 
     // Route::get('/password/reset','AuthAdmin\ForgotPasswordController@ShowLinkRequestForm')->name('admin.password.request');
     // Route::post('/password/email','AuthAdmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -39,21 +37,22 @@ Route::prefix('admin')->group(function() {
 //Route User1
 Route::prefix('home')->group(function() {
     Route::get('/', function(){
-    return view('user1.login');
+    return view('user1.navbar');
     })->middleware(['role1','auth']);
+  
 
-    // Route::get('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
-    // Route::post('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
+    Route::get('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
+    Route::post('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
     });
 
 
     //Route User2
 Route::prefix('user2')->group(function(){
-    Route::get('/',function(){
-        return view('user1.login');
+Route::get('/',function(){
+        return view('user1.navbar');
     })->middleware(['role2','auth']);
     
-// Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
-// Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
+Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
+Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
 
 });
