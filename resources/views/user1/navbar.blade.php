@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Admin</title>
+    <title>User 1
+        
+    </title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -44,7 +46,7 @@
                 <div class="theme">
                     <img src="{{asset('assets/image/u.png')}}" class="image hidden-xs">
                     <img src="{{asset('assets/image/u.png')}}" class="image-small hidden-lg hidden-md">
-                    <span class="text-admin hidden-xs hidden-sm">Admin</span>
+                    <span class="text-admin hidden-xs hidden-sm">User1</span>
                     <span class="hidden-xs hidden-sm" style="color: #fff">Staff</span>
                 </div>
 
@@ -155,8 +157,8 @@
                 <!--   ISI Blog -->
                 <section class="content-header dashbor">
                     <h1 style="padding-bottom: 10px">
-                        Selamat Datang
-                        <small>Admin</small>
+                        Selamat Datang User1
+                        <small>User1</small>
                     </h1>
                 </section>
 

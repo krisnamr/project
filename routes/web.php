@@ -31,6 +31,15 @@ Route::prefix('admin')->group(function() {
     
     // Route::get('/password/reset/{token}','AuthAdmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
     // Route::post('/password/reset','AuthAdmin\ResetPasswordController@reset');
+
+    Route::get('/main_dasbor','Admin\DasborController@index')->name('admin.dasbor');
+    Route::get('/main_dos','Admin\DosenController@index')->name('admin.dosen');
+    Route::get('/main_dos/detail','Admin\DosenController@show')->name('admin.dosen.detail');
+
+    Route::get('/detail_pengguna','Admin\PenggunaController@show')->name('admin.pengguna.detail');
+
+    Route::get('/main_laporan','Admin\LaporanController@index')->name('admin.laporan');
+    Route::get('/main_laporan/detail','Admin\LaporanController@show')->name('admin.laporan.detail'); 
 });
 
 
@@ -49,8 +58,9 @@ Route::prefix('home')->group(function() {
     //Route User2
 Route::prefix('user2')->group(function(){
 Route::get('/',function(){
-        return view('user1.navbar');
-    })->middleware(['role2','auth']);
+        return view('user2.navbar');
+    })->middleware(['role2','auth'])
+    ;
     
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
 Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');

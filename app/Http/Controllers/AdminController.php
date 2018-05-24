@@ -19,6 +19,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('template.navbar');
+        return view('admin.dasbor');
     }
 }

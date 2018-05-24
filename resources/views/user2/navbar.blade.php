@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Admin</title>
+    <title>User2</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -44,7 +44,7 @@
                 <div class="theme">
                     <img src="{{asset('assets/image/u.png')}}" class="image hidden-xs">
                     <img src="{{asset('assets/image/u.png')}}" class="image-small hidden-lg hidden-md">
-                    <span class="text-admin hidden-xs hidden-sm">Admin</span>
+                    <span class="text-admin hidden-xs hidden-sm">User2</span>
                     <span class="hidden-xs hidden-sm" style="color: #fff">Staff</span>
                 </div>
 
@@ -140,7 +140,7 @@
                                                             Logout
                                                         </a>
                                             
-                                         <li><form id="logout-form" action="{{ route('user.2logout') }}" method="POST" style="display: none;">
+                                         <li><form id="logout-form" action="{{ route('user2.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                             <input type="submit">Logout
                                         </form></li>
@@ -155,8 +155,8 @@
                 <!--   ISI Blog -->
                 <section class="content-header dashbor">
                     <h1 style="padding-bottom: 10px">
-                        Selamat Datang
-                        <small>Admin</small>
+                        Selamat Datang User 2
+                        <small>User 2</small>
                     </h1>
                 </section>
 
@@ -189,7 +189,7 @@
                                        
                                     </h3>
 
-                                    <p>Jumlah Laporan Kegiatan</p>
+                                    <p>Jumlah Laporan Honor</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-ios-paper"></i>
