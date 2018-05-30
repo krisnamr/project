@@ -1,38 +1,5 @@
 @extends('admin.navbar')
 
-@section('navbar')
-<ul>
-        <li class="link">
-            <a href="{{route('admin.dasbor')}}">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                <span class="hidden-xs hidden-sm">Dasbor</span>
-            </a>
-        </li>
-
-        <li class="link">
-            <a href="">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <span class="hidden-xs hidden-sm">Daftar Pengguna</span>
-                <span class="label label-success pull-right hidden-sm hidden-xs">10</span>
-            </a>
-        </li>
-
-        <li class="link active">
-            <a href="{{route('admin.dosen')}}">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                <span class="hidden-xs hidden-sm">Cari Dosen</span>
-            </a>
-        </li>
-
-        <li class="link">
-            <a href="{{route('admin.laporan')}}">
-                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                <span class="hidden-xs hidden-sm">Daftar Laporan</span>
-            </a>
-        </li>
-    </ul>
-@endsection
-
 @section('cari_dosen')
 
 <section class="content-header dashbor">

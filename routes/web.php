@@ -36,7 +36,13 @@ Route::prefix('admin')->group(function() {
     Route::get('/main_dos','Admin\DosenController@index')->name('admin.dosen');
     Route::get('/main_dos/detail','Admin\DosenController@show')->name('admin.dosen.detail');
 
-    Route::get('/detail_pengguna','Admin\PenggunaController@show')->name('admin.pengguna.detail');
+    Route::get('/buat_pengguna','Admin\PenggunaController@create')->name('admin.pengguna.buat');
+    Route::post('/list_pengguna','Admin\PenggunaController@store')->name('admin.pengguna.store');
+    Route::get('/list_pengguna','Admin\PenggunaController@index')->name('admin.pengguna.list');
+    Route::get('/{id}/edit_pengguna','Admin\PenggunaController@edit')->name('admin.pengguna.edit');
+    Route::patch('/{id}','Admin\PenggunaController@update');
+    Route::delete('/{id}','Admin\PenggunaController@destroy')->name('admin.pengguna.delete');
+    
 
     Route::get('/main_laporan','Admin\LaporanController@index')->name('admin.laporan');
     Route::get('/main_laporan/detail','Admin\LaporanController@show')->name('admin.laporan.detail'); 
@@ -65,4 +71,8 @@ Route::get('/',function(){
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
 Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
 
+});
+
+Route::get('/pengguna_buat', function () {
+    return view('admin.pengguna_buat');
 });

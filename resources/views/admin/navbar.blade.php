@@ -6,9 +6,11 @@
     <title>Admin</title>
 
     <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--Default-->
     <link rel="stylesheet" type="text/css" href="{{asset('css/default.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/navbar.css')}}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Font Awesome -->
@@ -45,9 +47,69 @@
                     <span class="hidden-xs hidden-sm" style="color: #fff">Staff</span>
                 </div>
 
-                @yield('navbar')
+                {{--  ===========Navbar=============  --}}
+               <div id="menu">
+                <ul class="current_page_itemm">
+                 
+                        <ul>
+                                <li class="link active">
+                                    <a href="{{route('admin.dasbor')}}">
+                                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                        <span class="hidden-xs hidden-sm">Dasbor</span>
+                                    </a>
+                                </li>
+                                    </li>
+                            </ul>
+                    <li class="link current_page_item"><a href="#collapse-pengguna" data-toggle="collapse" aria-controls="collapse-pengguna">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true">
+                            </span><span class="hidden-xs hidden-sm">Daftar Pengguna</span></a>
+
+                            <ul class="collapse collapseable" id="collapse-pengguna">
+                                <li><a href="{{route('admin.pengguna.list')}}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                                    </span>List Pengguna </a></li>
+                                    
+                                    <li><a href="{{route('admin.pengguna.buat')}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true">
+                                        </span>Buat Pengguna </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                    <li class="link">
+                        <a href="{{route('admin.dosen')}}">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">Cari Dosen</span>
+                        </a>
+                    </li>
+            
+                    <li class="link">
+                        <a href="#collapse-laporan" data-toggle="collapse" aria-controls="collapse-laporan">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">Daftar Laporan</span>
+                            
+                        </a>
+            
+                        <ul class="collapse collapseable" id="collapse-laporan">
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                    Laporan Kegiatan
+                                    
+                                </a>
+                                
+                            </li>
+            
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>Laporan Honor
+                                   
+                                </a>
+                            </li>
+                        </ul>
+                        </li>
+                </ul>
                 </li>
                 </ul>
+            </div>
             </div>
 
             <!-- main content area -->
@@ -96,15 +158,15 @@
                     </header>
                 </div>
                 <!--   ISI Blog -->
+                @yield('dasbor')
+                @yield('pengguna_list')
+                @yield('pengguna_buat')
+                @yield('pengguna_edit')
 
                 @yield('cari_dosen')
-              @yield('dasbor')
-              @yield('pengguna')
-              
-              @yield('lap_kegiatan')
-              
-              
-              
+                @yield('cari_dosen_detail')
+                @yield('lap_kegiatan')
+                @yield('lap_honor')
 
                 <!-- Bottom Bar -->
                @yield('footer')
@@ -118,5 +180,12 @@
     {{-- Include all compiled plugins (below), or include individual files as needed --}}
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/default.js')}}"> </script>
+    <script>
+            $(document).ready(function () {
+                    $('#menu ul li a').click(function (ev) {
+                        $('#menu ul li').removeClass('selected');
+                        $(ev.currentTarget).parent('li').addClass('selected');
+                    });
+                });</script>
 </body>
 
