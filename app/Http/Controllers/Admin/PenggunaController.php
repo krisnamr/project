@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\User;
+use App\UserHonor;
+use App\UserKegiatan;
+use App\UserPembukuan;
 
 class PenggunaController extends Controller
 {
@@ -15,79 +17,84 @@ class PenggunaController extends Controller
     }
     
     public function index(){
-     $users = User::orderBy('fullname','asc')->paginate(10); 
-     $jumlah= User::count();
-     return view('admin/pengguna_list',['users'=>$users,'jumlah'=>$jumlah]);  
+    
+     $user2= UserHonor::paginate(5);
+     $jumlah2= UserHonor::count();
+     $number=0;
+     $user1 = UserKegiatan::paginate(5); 
+     $user3=UserPembukuan::paginate(5);
+     $jumlah1= UserKegiatan::count();
+     $numbers=0;
+     return view('admins/akun/index',['user2'=>$user2,'user1'=>$user1,
+     'jumlah2'=>$jumlah2,'jumlah1'=>$jumlah1,'numbers'=>$numbers,'number'=>$number,'user3'=>$user3]);  
 
     }
 
     public function create(){
-        return view('admin.pengguna_buat');
+        return view('admins.akun.create');
     }
 
     public function store(Request $request){
         $this->validateInput($request);
-         User::create([
+         UserHonor::create([
             'fullname' => $request['fullname'],
             'email'=>$request['email'],
             'jabatan'=>$request['jabatan'],
             'password'=>bcrypt($request['password']),
-            'role'=>$request['role']
         ]);
+        
 
-        return redirect('admin/list_pengguna');
+        return redirect('admin/akunhonor');
     }
 
     public function show(){
-        return view('admin.pengguna_detail');
+       
     }
 
     public function edit($id)
     {
-        $users = User::findOrFail($id);
+        $user2 = UserHonor::findOrFail($id);
 
-        return view('admin.pengguna_edit', ['users' => $users]);
+        return view('admins/akun/edit', ['user2' => $user2]);
     }
 
     public function update(Request $request, $id)
     {
-        $user = User::FindOrFail($id);
+        $user2 = UserHonor::FindOrFail($id);
         $constraints = [
             'fullname' => 'required|max:20',
             'email'=> 'required|max:60',
             'jabatan' => 'required|max:60',
-            'role'=>'required'
             ];
         $input = [
             'fullname' => $request['fullname'],
             'email' => $request['email'],
             'jabatan' => $request['jabatan'],
-            'role'=>$request['role']
+            'password'=>bcrypt($request['password']),
         ];
         
         $this->validate($request, $constraints);
-        User::where('id', $id)
+        UserHonor::where('id', $id)
             ->update($input);
         
-        return redirect()->intended('admin/list_pengguna');
+        // return redirect()->intended('admin/list_pengguna');
+        return redirect('admin/akunhonor');
     }
 
     public function destroy($id)
     {
-        $users=User::findOrFail($id);
-        $users ->delete();
-        return redirect()->intended('admin/list_pengguna');
+        $user2=UserHonor::findOrFail($id);
+        $user2 ->delete();
+        return redirect()->intended('admin/akunhonor');
        
     }
-
-
     private function validateInput($request) {
         $this->validate($request, [
         'fullname' => 'required|max:20',
-        'email' => 'required|email|max:255|unique:users',
+        'email' => 'required|email|max:255|unique:user_honors',
         'password' => 'required|min:6|confirmed',
         'jabatan' => 'required|max:60',
-        'role' => 'required'
+       
     ]);
     }
 

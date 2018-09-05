@@ -14,29 +14,28 @@
     <div class="loginBox">
         <div class="glass">
             <img src="{{asset('assets/image/logo2.png')}}" class="image user">
-            <h3>Login Here</h3>
+            <h3>Login Pajak</h3>
 
-            <form method="POST" action="{{ route('user.login.submit') }}">
+            <form method="POST" action="{{ route('pajak.login.submit') }}">
                 {{ csrf_field() }}
 
                 <div class="inputBox">
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <input type="text" id="email" name="email" placeholder="E-mail Address" value="{{ old('email') }}" required autofocus>
-                        
                         <span>
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
+                        <input type="text" id="email" name="email" placeholder="E-mail Address" value="{{ old('email') }}" required autofocus>
                     </div>
                 </div>
 
 
                 <div class="inputBox">
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input type="password" id="password" name="password" placeholder="Password" required> 
-                    <span>
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
-                </div>
+                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <span>
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                        <input type="password" id="password" name="password" placeholder="Password" required> 
+                    </div>
                 </div>
 
                 <input type="submit" name="button" value="Login" class="form-control">
@@ -54,7 +53,7 @@
                     </span>
                     @endif
 
-                <a href="#">Forgot Password</a>
+                
             </form>
 </body>
 

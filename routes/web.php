@@ -1,78 +1,133 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+// Auth::routes();
 
+Route::get('/', function () {
+    return view('coba');
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 //Route Admin
 Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index')->name('admin.home');
+
+    Route::get('/', 'AuthAdmin\AdminController@index')->name('admin.home');
     Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
-
-    Route::get('/logout', 'Auth\LoginController@logout')->name('admin.logout');
     Route::post('/logout', 'AuthAdmin\LoginController@Adminlogout')->name('admin.logout');
-
-    // Route::get('/password/reset','AuthAdmin\ForgotPasswordController@ShowLinkRequestForm')->name('admin.password.request');
-    // Route::post('/password/email','AuthAdmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     
-    // Route::get('/password/reset/{token}','AuthAdmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
-    // Route::post('/password/reset','AuthAdmin\ResetPasswordController@reset');
-
-    Route::get('/main_dasbor','Admin\DasborController@index')->name('admin.dasbor');
-    Route::get('/main_dos','Admin\DosenController@index')->name('admin.dosen');
-    Route::get('/main_dos/detail','Admin\DosenController@show')->name('admin.dosen.detail');
-
-    Route::get('/buat_pengguna','Admin\PenggunaController@create')->name('admin.pengguna.buat');
-    Route::post('/list_pengguna','Admin\PenggunaController@store')->name('admin.pengguna.store');
-    Route::get('/list_pengguna','Admin\PenggunaController@index')->name('admin.pengguna.list');
-    Route::get('/{id}/edit_pengguna','Admin\PenggunaController@edit')->name('admin.pengguna.edit');
-    Route::patch('/{id}','Admin\PenggunaController@update');
-    Route::delete('/{id}','Admin\PenggunaController@destroy')->name('admin.pengguna.delete');
+    Route::resource('/akunhonor','Admin\PenggunaController');
+    Route::patch('/akunhonor/{id}/update','Admin\PenggunaController@update');
     
+    Route::resource('/akunadmin', 'Admin\AdminBuatController');
+    Route::patch('/akunadmin/{id}/update','Admin\AdminBuatController@update');
 
-    Route::get('/main_laporan','Admin\LaporanController@index')->name('admin.laporan');
-    Route::get('/main_laporan/detail','Admin\LaporanController@show')->name('admin.laporan.detail'); 
+    Route::resource('/akunkegiatan', 'Admin\PenggunaKegiatanController');
+    Route::patch('/akunkegiatan/{id}/update','Admin\PenggunaKegiatanController@update');
+
+    Route::resource('/akunpembukuan', 'Admin\PenggunaPembukuanController');
+    Route::patch('/akunpembukuan/{id}/update','Admin\PenggunaPembukuanController@update');
+
 });
+
+// Route Pajak Kegiatan
+Route::prefix('pajak')->group(function() {
+
+    Route::get('/login','AuthKegiatan\LoginController@showLoginForm')->name('pajak.login');
+    Route::post('/login','AuthKegiatan\LoginController@login')->name('pajak.login.submit');
+    Route::get('/', 'AuthKegiatan\UserKegiatanController@index')->name('pajak.home');
+    Route::post('/logout', 'AuthKegiatan\LoginController@Kegiatanlogout')->name('pajak.logout');
+
+    Route::get('/riwayat','Riwayat\RiwayatController@index')->name('riwayat.index');
+    Route::post('/riwayatsearch','Riwayat\RiwayatController@search')->name('riwayat.search');
+    Route::get('/riwayatshow','Riwayat\RiwayatController@show')->name('riwayat.show');
+    Route::get('/downloadPDF/{id}','Riwayat\RiwayatController@exportpdf')->name('riwayat.pdf');
+    
+});
+
+// Route Honor
+Route::prefix('honor')->group(function() {
+
+    Route::get('/login','AuthHonor\LoginController@showLoginForm')->name('honor.login');
+    Route::post('/login','AuthHonor\LoginController@login')->name('honor.login.submit');
+    Route::get('/', 'AuthHonor\UserHonorController@index')->name('honor.home');
+    Route::post('/logout', 'AuthHonor\LoginController@HonorLogout')->name('honor.logout');
+
+    Route::resource('/honordosen','Honor\HonorController');
+    Route::get('honordosen/{id}/create','Honor\HonorController@create')->name('honor.form');
+    Route::get('honordosen/{id}/delete', ['as' => 'honordosen.delete', 'uses' => 'Honor\HonorController@delete']);
+    Route::post('honordosen/{id}/store','Honor\HonorController@storedata');
+    Route::get('honordosen/{id}/isionline','Honor\HonorController@IsiOnline')->name('honor.online');
+    Route::get('honordosen/{id}/isioffline','Honor\HonorController@IsiOffline')->name('honor.offline');
+    Route::get('/downloadPDF/{id}','Honor\HonorController@exportpdf')->name('honor.pdf');
+
+    Route::get('/kegiatancreate','Kegiatan\KegiatanController@create')->name('regis.kegiatan');
+    Route::post('/kegiatan/store','Kegiatan\KegiatanController@store')->name('store.kegiatan');
+
+    Route::get('/honordosen/{id}/tambahisi','Honor\TambahIsiController@create')->name('tambahisi.create');
+    Route::post('/tambahisi/{id}/store','Honor\TambahIsiController@store')->name('tambahisi.tambah');
+
+    Route::get('/honordosen/{id}/tambahedit','Honor\TambahEditController@create')->name('tambahedit.createIsi');
+    Route::post('/tambahedit/{id}/store','Honor\TambahEditController@store')->name('tambahedit.tambah');
+
+    Route::post('honor/export-excel/{lapHonorId}', 'Honor\HonorController@exportExcel')->name('honor.honor.export-excel');
+    Route::post('honor/import-excel/', 'Honor\HonorController@importExcel')->name('honor.honor.import-excel');
+
+    Route::get('honordosen/{id}/complete','Honor\HonorController@complete')->name('honor.complete');
+
+    // Route::get('/riwayat','Riwayat\RiwayatController@index')->name('riwayat.index');
+    // Route::post('/riwayatsearch','Riwayat\RiwayatController@search')->name('riwayat.search');
+    // Route::get('/riwayatshow','Riwayat\RiwayatController@show')->name('riwayat.show');
+});
+
+//Route Pembukuan
+Route::prefix('rekaphonor')->group(function() {
+    Route::get('/login','AuthPembukuan\LoginController@showLoginForm')->name('pembukuan.login');
+    Route::post('/login','AuthPembukuan\LoginController@login')->name('pembukuan.login.submit');
+    Route::get('/', 'AuthPembukuan\UserPembukuanController@index')->name('pembukuan.home');
+    Route::post('/logout', 'AuthPembukuan\LoginController@Pembukuanlogout')->name('pembukuan.logout');
+
+    Route::get('/list','Pembukuan\PembukuanController@index')->name('pembukuan.index');
+    Route::get('/show','Pembukuan\PembukuanController@show')->name('pembukuan.show');
+});
+
 
 
 //Route User1
-Route::prefix('home')->group(function() {
-    Route::get('/', function(){
-    return view('user1.navbar');
-    })->middleware(['role1','auth']);
+// Route::prefix('home')->group(function() {
+//     Route::get('/', function(){
+//     return view('user1.navbar');
+//     })->middleware(['role1','auth']);
   
 
-    Route::get('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
-    Route::post('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
-    });
+//     Route::get('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
+//     Route::post('/logout', 'Auth\LoginController@userLogout')->name('home.logout');
+//      });
 
 
     //Route User2
-Route::prefix('user2')->group(function(){
-Route::get('/',function(){
-        return view('user2.navbar');
-    })->middleware(['role2','auth'])
-    ;
+// Route::prefix('user2')->group(function(){
+// Route::get('/',function(){
+//         return view('user2.navbar');
+
+        
+//     })->middleware(['role2','auth']);
     
-Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
-Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
+// Route::get('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
+// Route::post('/logout', 'Auth\LoginController@userLogout')->name('user2.logout');
 
-});
+// Route::resource('/honor','Honor\HonorController');
+// Route::get('honor/{id}/create','Honor\HonorController@create')->name('honor.form');
+// Route::post('honor/{id}/store','Honor\HonorController@store');
 
-Route::get('/pengguna_buat', function () {
-    return view('admin.pengguna_buat');
-});
+// Route::get('honor/{id}/tambahisi','Honor\TambahIsiController@create')->name('tambahisi.create');
+// Route::post('honor/{id}/store','Honor\TambahIsiController@store')->name('tambahisi.tambah');
+
+// Route::get('honor/{id}/tambahedit','Honor\TambahEditController@create')->name('tambahedit.createIsi');
+// Route::post('honor/{id}/store','Honor\TambahEditController@store')->name('tambahedit.tambah');
+
+// });
+
+// Route::get('/pengguna_buat', function () {
+//     return view('admin.pengguna_buat');
+// });

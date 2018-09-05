@@ -4,6 +4,10 @@ body{
     margin: 0;
     padding: 0;
     background: url('../../public/assets/image/ug_g.jpg');
+    /* background-image: url("asset(/bower_components/AdminLTE/dist/img/u.png)"); */
+    /* src="{{ asset("/bower_components/AdminLTE/dist/img/u.png") }}" */
+   
+   
    
 }
 
