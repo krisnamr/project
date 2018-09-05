@@ -9,8 +9,7 @@ Route::get('/', function () {
 
 
 //Route Admin
-Route::prefix('admin')->group(function() {
-
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
     Route::get('/', 'AuthAdmin\AdminController@index')->name('admin.home');
     Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
@@ -27,11 +26,10 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('/akunpembukuan', 'Admin\PenggunaPembukuanController');
     Route::patch('/akunpembukuan/{id}/update','Admin\PenggunaPembukuanController@update');
-
 });
 
 // Route Pajak Kegiatan
-Route::prefix('pajak')->group(function() {
+Route::group(['prefix' => 'pajak', 'middleware' => ['role:pajak']], function() {
 
     Route::get('/login','AuthKegiatan\LoginController@showLoginForm')->name('pajak.login');
     Route::post('/login','AuthKegiatan\LoginController@login')->name('pajak.login.submit');
@@ -46,42 +44,44 @@ Route::prefix('pajak')->group(function() {
 });
 
 // Route Honor
-Route::prefix('honor')->group(function() {
+Route::group(['prefix' => 'honor'], function() {
 
     Route::get('/login','AuthHonor\LoginController@showLoginForm')->name('honor.login');
     Route::post('/login','AuthHonor\LoginController@login')->name('honor.login.submit');
-    Route::get('/', 'AuthHonor\UserHonorController@index')->name('honor.home');
+    Route::get('/', 'AuthHonor\UserHonorController@index')->middleware('auth')->name('honor.home');
     Route::post('/logout', 'AuthHonor\LoginController@HonorLogout')->name('honor.logout');
 
-    Route::resource('/honordosen','Honor\HonorController');
-    Route::get('honordosen/{id}/create','Honor\HonorController@create')->name('honor.form');
-    Route::get('honordosen/{id}/delete', ['as' => 'honordosen.delete', 'uses' => 'Honor\HonorController@delete']);
-    Route::post('honordosen/{id}/store','Honor\HonorController@storedata');
-    Route::get('honordosen/{id}/isionline','Honor\HonorController@IsiOnline')->name('honor.online');
-    Route::get('honordosen/{id}/isioffline','Honor\HonorController@IsiOffline')->name('honor.offline');
-    Route::get('/downloadPDF/{id}','Honor\HonorController@exportpdf')->name('honor.pdf');
+    Route::group(['middleware' => ['role:honor']], function() {
+        Route::resource('/honordosen','Honor\HonorController');
+        Route::get('honordosen/{id}/create','Honor\HonorController@create')->name('honor.form');
+        Route::get('honordosen/{id}/delete', ['as' => 'honordosen.delete', 'uses' => 'Honor\HonorController@delete']);
+        Route::post('honordosen/{id}/store','Honor\HonorController@storedata');
+        Route::get('honordosen/{id}/isionline','Honor\HonorController@IsiOnline')->name('honor.online');
+        Route::get('honordosen/{id}/isioffline','Honor\HonorController@IsiOffline')->name('honor.offline');
+        Route::get('/downloadPDF/{id}','Honor\HonorController@exportpdf')->name('honor.pdf');
 
-    Route::get('/kegiatancreate','Kegiatan\KegiatanController@create')->name('regis.kegiatan');
-    Route::post('/kegiatan/store','Kegiatan\KegiatanController@store')->name('store.kegiatan');
+        Route::get('/kegiatancreate','Kegiatan\KegiatanController@create')->name('regis.kegiatan');
+        Route::post('/kegiatan/store','Kegiatan\KegiatanController@store')->name('store.kegiatan');
 
-    Route::get('/honordosen/{id}/tambahisi','Honor\TambahIsiController@create')->name('tambahisi.create');
-    Route::post('/tambahisi/{id}/store','Honor\TambahIsiController@store')->name('tambahisi.tambah');
+        Route::get('/honordosen/{id}/tambahisi','Honor\TambahIsiController@create')->name('tambahisi.create');
+        Route::post('/tambahisi/{id}/store','Honor\TambahIsiController@store')->name('tambahisi.tambah');
 
-    Route::get('/honordosen/{id}/tambahedit','Honor\TambahEditController@create')->name('tambahedit.createIsi');
-    Route::post('/tambahedit/{id}/store','Honor\TambahEditController@store')->name('tambahedit.tambah');
+        Route::get('/honordosen/{id}/tambahedit','Honor\TambahEditController@create')->name('tambahedit.createIsi');
+        Route::post('/tambahedit/{id}/store','Honor\TambahEditController@store')->name('tambahedit.tambah');
 
-    Route::post('honor/export-excel/{lapHonorId}', 'Honor\HonorController@exportExcel')->name('honor.honor.export-excel');
-    Route::post('honor/import-excel/', 'Honor\HonorController@importExcel')->name('honor.honor.import-excel');
+        Route::post('honor/export-excel/{lapHonorId}', 'Honor\HonorController@exportExcel')->name('honor.honor.export-excel');
+        Route::post('honor/import-excel/', 'Honor\HonorController@importExcel')->name('honor.honor.import-excel');
 
-    Route::get('honordosen/{id}/complete','Honor\HonorController@complete')->name('honor.complete');
+        Route::get('honordosen/{id}/complete','Honor\HonorController@complete')->name('honor.complete');
 
-    // Route::get('/riwayat','Riwayat\RiwayatController@index')->name('riwayat.index');
-    // Route::post('/riwayatsearch','Riwayat\RiwayatController@search')->name('riwayat.search');
-    // Route::get('/riwayatshow','Riwayat\RiwayatController@show')->name('riwayat.show');
+        // Route::get('/riwayat','Riwayat\RiwayatController@index')->name('riwayat.index');
+        // Route::post('/riwayatsearch','Riwayat\RiwayatController@search')->name('riwayat.search');
+        // Route::get('/riwayatshow','Riwayat\RiwayatController@show')->name('riwayat.show');
+    });
 });
 
 //Route Pembukuan
-Route::prefix('rekaphonor')->group(function() {
+Route::group(['prefix' => 'rekaphonor', 'middleware' => ['role:rekaphonor']], function() {
     Route::get('/login','AuthPembukuan\LoginController@showLoginForm')->name('pembukuan.login');
     Route::post('/login','AuthPembukuan\LoginController@login')->name('pembukuan.login.submit');
     Route::get('/', 'AuthPembukuan\UserPembukuanController@index')->name('pembukuan.home');

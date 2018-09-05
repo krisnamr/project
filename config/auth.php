@@ -45,42 +45,6 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-
-        'api-admin' => [
-            'driver' => 'token',
-            'provider' => 'admins',
-        ],
-        'kegiatan' => [
-            'driver' => 'session',
-            'provider' => 'kegiatans',
-        ],
-
-        'api-kegiatan' => [
-            'driver' => 'token',
-            'provider' => 'kegiatans',
-        ],
-        'honor' => [
-            'driver' => 'session',
-            'provider' => 'honors',
-        ],
-
-        'api-honor' => [
-            'driver' => 'token',
-            'provider' => 'honors',
-        ],
-        'pembukuan' => [
-            'driver' => 'session',
-            'provider' => 'pembukuans',
-        ],
-
-        'api-pembukuan' => [
-            'driver' => 'token',
-            'provider' => 'pembukuans',
-        ],
     ],
 
     /*
@@ -103,25 +67,10 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Admin::class,
-        ],
-        'kegiatans' => [
-            'driver' => 'eloquent',
-            'model' => App\UserKegiatan::class,
-        ],
-        'honors' => [
-            'driver' => 'eloquent',
+            // 'model' => App\Admin::class,
             'model' => App\UserHonor::class,
         ],
-        'pembukuans' => [
-            'driver' => 'eloquent',
-            'model' => App\UserPembukuan::class,
-        ],
-
+        
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -148,26 +97,6 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-        ],
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 15,
-        ],
-        'kegiatans' => [
-            'provider' => 'kegiatans',
-            'table' => 'password_resets',
-            'expire' => 15,
-        ],
-        'honors' => [
-            'provider' => 'honors',
-            'table' => 'password_resets',
-            'expire' => 15,
-        ],
-        'pembukuans' => [
-            'provider' => 'pembukuans',
-            'table' => 'password_resets',
-            'expire' => 15,
         ],
     ],
 

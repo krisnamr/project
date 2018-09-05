@@ -35,7 +35,7 @@ class LoginController extends Controller
         ];
 
         // Attempt to log the user in
-        if (Auth::guard('kegiatan')->attempt($credential, $request->remember)){
+        if (Auth::attempt($credential, $request->remember)){
             // If login succesful, then redirect to their intended location
             return redirect()->intended(route('pajak.home'));
             
@@ -45,7 +45,7 @@ class LoginController extends Controller
 
     public function Kegiatanlogout()
     {
-        Auth::guard('kegiatan')->logout();
+        Auth::logout();
         return redirect('pajak/login');
         
     }
