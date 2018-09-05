@@ -15,6 +15,8 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
     Route::post('/logout', 'AuthAdmin\LoginController@Adminlogout')->name('admin.logout');
+    Route::resource('/permission', 'Admin\PermissionController', ['as' => 'admin']);
+    Route::resource('/role', 'Admin\RoleController', ['as' => 'admin']);
     
     Route::resource('/akunhonor','Admin\PenggunaController');
     Route::patch('/akunhonor/{id}/update','Admin\PenggunaController@update');

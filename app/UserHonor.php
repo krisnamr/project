@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class UserHonor extends Authenticatable
 {
+    use HasRoles;
     use Notifiable;
+
     protected $guard='honor';
     protected $fillable = ['fullname', 'email', 'password','jabatan','role',
     ];
