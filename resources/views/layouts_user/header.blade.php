@@ -37,20 +37,8 @@
               </p>
             </li>
             <!-- Menu Footer-->
-            @if(Auth::guard('admin')->user())
-            <li class="user-footer">
-               <div class="pull-left">
-                  <a href="{{route('admin.home')}}" class="btn btn-default btn-flat">Dasbor</a>
-                </div>
-               <div class="pull-right">
-                  <a class="btn btn-default btn-flat" href="{{route('admin.logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  Logout
-                  </a>
-               </div>
-            </li>
-            @endif
 
-            @if(Auth::guard('honor')->user())
+            @if(Auth::user())
             <li class="user-footer">
                <div class="pull-left">
                   <a href="{{route('honor.home')}}" class="btn btn-default btn-flat">Dasbor</a>
@@ -63,31 +51,8 @@
             </li>
             @endif
 
-            @if(Auth::guard('kegiatan')->user())
-            <li class="user-footer">
-               <div class="pull-left">
-                  <a href="{{route('pajak.home')}}" class="btn btn-default btn-flat">Dasbor</a>
-                </div>
-               <div class="pull-right">
-                  <a class="btn btn-default btn-flat" href="{{route('pajak.logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  Logout
-                  </a>
-               </div>
-            </li>
-            @endif
 
-            @if(Auth::guard('pembukuan')->user())
-            <li class="user-footer">
-               <div class="pull-left">
-                  <a href="{{route('pembukuan.home')}}" class="btn btn-default btn-flat">Dasbor</a>
-                </div>
-               <div class="pull-right">
-                  <a class="btn btn-default btn-flat" href="{{route('pembukuan.logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  Logout
-                  </a>
-               </div>
-            </li>
-            @endif
+         
           </ul>
         </li>
       </ul>
@@ -95,29 +60,15 @@
   </nav>
 </header>
 
-@if(Auth::guard('admin')->user())
- <form id="logout-form" action="{{route('admin.logout')}}" method="POST" style="display: none;">
-    {{ csrf_field() }}
- </form>
- @endif
 
- @if(Auth::guard('honor')->user())
+
+ @if(Auth::user())
  <form id="logout-form" action="{{route('honor.logout')}}" method="POST" style="display: none;">
     {{ csrf_field() }}
  </form>
  @endif
 
- @if(Auth::guard('kegiatan')->user())
- <form id="logout-form" action="{{route('pajak.logout')}}" method="POST" style="display: none;">
-    {{ csrf_field() }}
- </form>
- @endif
-
- @if(Auth::guard('pembukuan')->user())
- <form id="logout-form" action="{{route('pembukuan.logout')}}" method="POST" style="display: none;">
-    {{ csrf_field() }}
- </form>
- @endif
+ 
 
  
  

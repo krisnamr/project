@@ -31,7 +31,7 @@
       <!-- /.search form -->
 
       <!-- Sidebar Menu Admin-->
-      @if(Auth::guard('admin')->user())
+      @if(Auth::user()->role=='admin')
       <ul class="sidebar-menu">
         <li class="active"><a href="{{route('admin.home')}}"><i class="fa fa-home"></i> <span>Dasbor</span></a></li>
         <li class="treeview">
@@ -65,7 +65,7 @@
       <!-- Sidebar Menu Honor -->
       
       <ul class="sidebar-menu">
-      @if(Auth::guard('honor')->user())
+      @if(Auth::user()->role=='bendahara_kegiatan')
         <li class="active"><a href="{{route('honor.home')}}"><i class="fa fa-home "></i> <span>Dasbor</span></a></li>
         <li><a href="{{route('regis.kegiatan')}}"><i class="fa fa-pencil-square-o"></i> <span>Registrasi Kegiatan</span></a></li>
       
@@ -87,7 +87,7 @@
       @endif
 
       <!-- Sidebar Menu Kegiatan-->
-      @if(Auth::guard('kegiatan')->user())
+      @if(Auth::user()->role=='bendahara_departemen')
       <ul class="sidebar-menu">
           <li class="active"><a href="{{route('pajak.home')}}"><i class="fa fa-home"></i> <span>Dasbor</span></a></li>
           <li><a href="{{route('riwayat.index')}}"><i class="fa fa-user"></i> <span>Rekapitulasi Pajak</span></a></li>
@@ -95,7 +95,7 @@
       @endif
 
       <!-- Sidebar Menu Pembukuan-->
-      @if(Auth::guard('pembukuan')->user())
+      @if(Auth::user()->role=='pembukuan')
       <ul class="sidebar-menu">
           <li class="active"><a href="{{route('pembukuan.home')}}"><i class="fa fa-home"></i> <span>Dasbor</span></a></li>
           <li><a href="{{route('pembukuan.index')}}"><i class="fa fa-user"></i> <span>Rekapitulasi Laporan</span></a></li>

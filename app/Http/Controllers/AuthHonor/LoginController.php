@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:honor',['except'=>'HonorLogout']);
+        $this->middleware('guest',['except'=>'HonorLogout']);
     }
 
    
@@ -35,7 +35,7 @@ class LoginController extends Controller
         ];
 
         // Attempt to log the user in
-        if (Auth::guard('honor')->attempt($credential, $request->remember)){
+        if (Auth::attempt($credential, $request->remember)){
             // If login succesful, then redirect to their intended location
             return redirect()->intended(route('honor.home'));
             
@@ -45,7 +45,7 @@ class LoginController extends Controller
 
     public function HonorLogout()
     {
-        Auth::guard('honor')->logout();
+        Auth::logout();
         return redirect('honor/login');
         
     }

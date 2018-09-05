@@ -24,7 +24,7 @@ class HonorController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:honor');
+        $this->middleware('auth');
     }
 
     public function index()
